@@ -1,5 +1,9 @@
 import igraph as ig
 
+def plota_grafo(G):
+    layout = G.layout("kk")
+    ig.plot(G, layout=layout, bbox=(800, 800))
+
 def define_cor(cores, cores_vizinhos):
     for opcao in cores:
         if opcao not in cores_vizinhos:
@@ -15,7 +19,9 @@ def coloracao_vertices(G,cores):
 
 def main():
     # lê o grafo
-    G = ig.Graph.Read_Adjacency("petersen.txt").as_undirected()
+    file = "petersen.txt"
+    G = ig.Graph.Read_Adjacency(file).as_undirected()
+    
     qtd_vertices = G.vcount()
 
     # cores que serao usadas no grafo
@@ -27,10 +33,6 @@ def main():
 
     coloracao_vertices(G,cores)
 
-    # "fruchterman_reingold"
-    layout = G.layout("kk")
-    ig.plot(G, layout=layout, bbox=(800, 800))
-
-    #ig.plot(G)
+    plota_grafo(G)
 
 main()
