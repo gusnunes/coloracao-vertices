@@ -1,9 +1,16 @@
 import igraph as ig
 
 def plota_grafo(G):
-    # cores que serao usadas no grafo
-    palette = ig.RainbowPalette(n=qtd_vertices)
-    cores = [palette.get(i) for i in range(qtd_vertices)]
+    # apenas as cores usadas na coloração do grafo
+    qtd_cores = len(set(G.vs["color"]))
+    
+    # define a paleta de cores
+    palette = ig.RainbowPalette(n=qtd_cores)
+    cores = [palette.get(i) for i in range(qtd_cores)]
+
+    # cada vértice recebe uma cor do modelo RGBA
+    for vertice in G.vs:
+        vertice["color"] = cores[vertice["color"]]
 
     layout = G.layout("kk")
     ig.plot(G, layout=layout, bbox=(800, 800))
@@ -32,7 +39,7 @@ def coloracao_vertices(G,cores):
 
 def main():
     # lê o grafo
-    file = "petersen.txt"
+    file = "grafos\petersen.txt"
     G = ig.Graph.Read_Adjacency(file).as_undirected()
     
     # lista de cores (representadas por inteiros)
@@ -44,7 +51,6 @@ def main():
 
     coloracao_vertices(G,cores)
     escreve_arquivo(G)
-
-    #plota_grafo(G)
+    plota_grafo(G)
 
 main()
