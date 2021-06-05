@@ -49,6 +49,9 @@ def main():
     # primeiramente os vértices não tem cores
     G.vs["color"] = None
 
+    # label de cada vértice
+    G.vs["label"] = cores
+
     coloracao_vertices(G,cores)
     escreve_arquivo(G)
     plota_grafo(G)
